@@ -16,7 +16,12 @@
         - npm install nrm -g  nrm==>切换源的工具
         - nrm test
         - nrm use cnpm
-    - 本地安装(在当前项目下使用)
-        - --save-dev 开发依赖（）
+    - 本地安装(在当前项目下使用)== enoself(自己安自己)
+        - npm init 记录所有依赖 package.json，可能会导致安装到上级目录，名字不能有中文，特殊字符
+            > npm init -y ==> 可以自动一步执行
+
+            > npm install ==>全部安装
+            - 开发依赖 只在开发时应用 --save-dev（-D）
+            - 项目依赖 开发上线都需要 --save   (-S)
 
 > npm node package manager 管理node的包（很多js文件）的安装node自带npm 买node送npm

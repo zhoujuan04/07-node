@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="username" class="control-label">请输入用户名</label>
+                        <input type="text" id="username" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="control-label">请输入密码</label>
+                        <input type="text" id="password" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary">添加</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入ajax-->
+<script src="ajax.js"></script>
+<!--
+    RESTFul风格
+    /user GET 获取用户 通过 query 来实现 获取一个，获取全部
+    /user DELETE 删除用户
+    /user POST  添加用户
+    /user PUT  修改用户
+-->
+<script>
+    //querySelector 静态的 没有DOM映射，后填加的不会获取
+    let oUl=document.querySelector('.list-group');
+    let oBtn=document.querySelector('.btn-primary');
+    let username = document.getElementById("username");
+    let password = document.getElementById("password");
+    oBtn.addEventListener('click',function () {
+        ajax({
+            url:'/user',
+            method:'POST',
+            data:{
+                username:username.value,
+                password:password.value
+            },
+            type:'json'
+        }).then(data=>{
+            bindHtml(data);
+        })
+    });
+    function bindHtml(data) {
+        let str = '';
+        data.forEach(item => {
+            str += `
+                <li class="list-group-item">
+                    姓名：${item.username}
+                    密码：${item.password}
+                </li>
+            `;
+        })
+        oUl.innerHTML = str;
+    }
+    ajax({
+        url:'/user',
+        type:'json',
+        method:'GET'
+    }).then((data)=>{
+        bindHtml(data);
+    })
+</script>
+</body>
+</html>

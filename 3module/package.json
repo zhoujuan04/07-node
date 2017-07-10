@@ -1,0 +1,9 @@
+{
+  "name": "3module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "less": "^2.7.2"
+  }
+}
